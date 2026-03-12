@@ -1,518 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Management System</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
+<title>Evolve Living Employee Portal</title>
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+<style>
 
-        header {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-align: center;
-        }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
 
-        header h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 2.5em;
-        }
+body{
+background:#f4f6fb;
+display:flex;
+height:100vh;
+}
 
-        header p {
-            color: #666;
-            font-size: 1.1em;
-        }
+/* SIDEBAR */
 
-        nav {
-            background: white;
-            padding: 0;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            display: flex;
-            flex-wrap: wrap;
-        }
+.sidebar{
+width:250px;
+background:#111827;
+color:white;
+padding:25px;
+}
 
-        nav button {
-            flex: 1;
-            min-width: 150px;
-            padding: 15px 20px;
-            border: none;
-            background: white;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 500;
-            color: #667eea;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-        }
+.sidebar h2{
+margin-bottom:30px;
+font-size:22px;
+}
 
-        nav button:hover {
-            background: #f5f5f5;
-            border-bottom-color: #667eea;
-        }
+.sidebar button{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+border:none;
+background:#1f2937;
+color:white;
+cursor:pointer;
+border-radius:6px;
+transition:0.3s;
+}
 
-        nav button.active {
-            background: #667eea;
-            color: white;
-            border-bottom-color: #667eea;
-        }
+.sidebar button:hover{
+background:#374151;
+}
 
-        .section {
-            display: none;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+/* MAIN */
 
-        .section.active {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
+.main{
+flex:1;
+padding:30px;
+overflow:auto;
+}
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+/* HEADER */
 
-        .section h2 {
-            color: #333;
-            margin-bottom: 25px;
-            font-size: 1.8em;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
-        }
+.header{
+background:white;
+padding:20px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+margin-bottom:20px;
+}
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+.header h1{
+font-size:26px;
+margin-bottom:5px;
+}
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-            font-size: 1em;
-        }
+.header p{
+color:#555;
+}
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="number"],
-        input[type="date"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1em;
-            font-family: inherit;
-            transition: border-color 0.3s ease;
-        }
+/* SECTION */
 
-        input:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
+.section{
+display:none;
+background:white;
+padding:20px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
 
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
+.section.active{
+display:block;
+}
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
+/* SUB TABS */
 
-        button[type="submit"],
-        button[type="reset"] {
-            background: #667eea;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-right: 10px;
-        }
+.subnav{
+margin-bottom:15px;
+}
 
-        button[type="submit"]:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
+.subnav button{
+padding:10px 20px;
+margin-right:10px;
+border:none;
+background:#e5e7eb;
+cursor:pointer;
+border-radius:6px;
+}
 
-        button[type="reset"] {
-            background: #999;
-        }
+.subnav button:hover{
+background:#d1d5db;
+}
 
-        button[type="reset"]:hover {
-            background: #777;
-        }
+/* LOADING */
 
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: none;
-        }
+.loader{
+text-align:center;
+padding:20px;
+color:#555;
+}
 
-        .section-description {
-            background: #f8f9fa;
-            padding: 15px;
-            border-left: 4px solid #667eea;
-            margin-bottom: 25px;
-            border-radius: 5px;
-            color: #555;
-        }
+iframe{
+width:100%;
+height:600px;
+border:none;
+}
 
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8em;
-            }
-
-            nav button {
-                min-width: 120px;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .section {
-                padding: 20px;
-            }
-        }
-    </style>
+</style>
 </head>
+
+
 <body>
-    <div class="container">
-        <header>
-            <h1>Employee Management System</h1>
-            <p>Manage all employee operations in one place</p>
-        </header>
 
-        <nav>
-            <button class="nav-btn active" data-section="login">Login</button>
-            <button class="nav-btn" data-section="logout">Logout</button>
-            <button class="nav-btn" data-section="retailer-visit">Retailer Visit</button>
-            <button class="nav-btn" data-section="cash-collection">Cash Collection</button>
-            <button class="nav-btn" data-section="online-collection">Online Collection</button>
-        </nav>
 
-        <!-- Login Section -->
-        <div id="login" class="section active">
-            <h2>Employee Login</h2>
-            <div class="section-description">
-                Enter your credentials to access the employee management system.
-            </div>
-            <div class="success-message" id="login-success">Successfully logged in! Welcome back.</div>
-            <form onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label for="login-email">Email Address</label>
-                    <input type="email" id="login-email" name="email" required placeholder="your.email@company.com">
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" name="password" required placeholder="Enter your password">
-                </div>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" name="remember"> Remember me on this device
-                    </label>
-                </div>
-                <button type="submit">Login</button>
-                <button type="reset">Clear</button>
-            </form>
-        </div>
+<!-- SIDEBAR -->
 
-        <!-- Logout Section -->
-        <div id="logout" class="section">
-            <h2>Employee Logout</h2>
-            <div class="section-description">
-                Safely log out from the system. Save any pending work before logging out.
-            </div>
-            <div class="success-message" id="logout-success">You have been successfully logged out.</div>
-            <form onsubmit="handleLogout(event)">
-                <div class="form-group">
-                    <label for="logout-employee-id">Employee ID</label>
-                    <input type="text" id="logout-employee-id" name="employee_id" required placeholder="EMP-001">
-                </div>
-                <div class="form-group">
-                    <label for="logout-name">Employee Name</label>
-                    <input type="text" id="logout-name" name="name" required placeholder="Full Name">
-                </div>
-                <div class="form-group">
-                    <label for="logout-time">Logout Date</label>
-                    <input type="date" id="logout-time" name="logout_time" required>
-                </div>
-                <div class="form-group">
-                    <label for="logout-reason">Reason for Logout (Optional)</label>
-                    <textarea id="logout-reason" name="reason" placeholder="Enter reason if any"></textarea>
-                </div>
-                <button type="submit">Confirm Logout</button>
-                <button type="reset">Clear</button>
-            </form>
-        </div>
+<div class="sidebar">
 
-        <!-- Retailer Visit Section -->
-        <div id="retailer-visit" class="section">
-            <h2>Retailer Visit Form</h2>
-            <div class="section-description">
-                Record details of your visits to retail locations including store info and observations.
-            </div>
-            <div class="success-message" id="visit-success">Visit record saved successfully!</div>
-            <form onsubmit="handleRetailerVisit(event)">
-                <div class="form-group">
-                    <label for="visit-employee-id">Employee ID</label>
-                    <input type="text" id="visit-employee-id" name="employee_id" required placeholder="EMP-001">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="visit-date">Visit Date</label>
-                        <input type="date" id="visit-date" name="visit_date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="visit-time">Visit Time</label>
-                        <input type="text" id="visit-time" name="visit_time" required placeholder="HH:MM">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="retailer-name">Retailer Name</label>
-                    <input type="text" id="retailer-name" name="retailer_name" required placeholder="Store/Retailer Name">
-                </div>
-                <div class="form-group">
-                    <label for="retailer-location">Location/Address</label>
-                    <input type="text" id="retailer-location" name="location" required placeholder="Full Address">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="visit-duration">Duration (minutes)</label>
-                        <input type="number" id="visit-duration" name="duration" required placeholder="30">
-                    </div>
-                    <div class="form-group">
-                        <label for="retailer-contact">Contact Person</label>
-                        <input type="text" id="retailer-contact" name="contact_person" required placeholder="Name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="visit-notes">Visit Notes/Observations</label>
-                    <textarea id="visit-notes" name="notes" placeholder="Describe your visit and observations"></textarea>
-                </div>
-                <button type="submit">Save Visit Record</button>
-                <button type="reset">Clear</button>
-            </form>
-        </div>
+<h2>Evolve Living</h2>
 
-        <!-- Cash Collection Section -->
-        <div id="cash-collection" class="section">
-            <h2>Cash Collection Form</h2>
-            <div class="section-description">
-                Record all cash collections from retail locations with payment details.
-            </div>
-            <div class="success-message" id="cash-success">Cash collection recorded successfully!</div>
-            <form onsubmit="handleCashCollection(event)">
-                <div class="form-group">
-                    <label for="cash-employee-id">Employee ID</label>
-                    <input type="text" id="cash-employee-id" name="employee_id" required placeholder="EMP-001">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="collection-date">Collection Date</label>
-                        <input type="date" id="collection-date" name="collection_date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="collection-time">Collection Time</label>
-                        <input type="text" id="collection-time" name="collection_time" required placeholder="HH:MM">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="cash-retailer">Retailer Name</label>
-                    <input type="text" id="cash-retailer" name="retailer_name" required placeholder="Store Name">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="collection-amount">Amount Collected (₹)</label>
-                        <input type="number" id="collection-amount" name="amount" required placeholder="0.00" step="0.01">
-                    </div>
-                    <div class="form-group">
-                        <label for="invoice-number">Invoice/Reference Number</label>
-                        <input type="text" id="invoice-number" name="invoice_number" required placeholder="INV-001">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="payment-method">Payment Method</label>
-                    <select id="payment-method" name="payment_method" required>
-                        <option value="">Select Payment Method</option>
-                        <option value="cash">Cash</option>
-                        <option value="cheque">Cheque</option>
-                        <option value="demand-draft">Demand Draft</option>
-                        <option value="bank-transfer">Bank Transfer</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="collection-notes">Collection Notes</label>
-                    <textarea id="collection-notes" name="notes" placeholder="Any special notes"></textarea>
-                </div>
-                <button type="submit">Submit Collection</button>
-                <button type="reset">Clear</button>
-            </form>
-        </div>
+<button onclick="showSection('tracking')">Employee Tracking</button>
 
-        <!-- Online Collection Section -->
-        <div id="online-collection" class="section">
-            <h2>Online Collection Form</h2>
-            <div class="section-description">
-                Record online payment collections with transaction details and gateway info.
-            </div>
-            <div class="success-message" id="online-success">Online collection recorded successfully!</div>
-            <form onsubmit="handleOnlineCollection(event)">
-                <div class="form-group">
-                    <label for="online-employee-id">Employee ID</label>
-                    <input type="text" id="online-employee-id" name="employee_id" required placeholder="EMP-001">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="online-date">Transaction Date</label>
-                        <input type="date" id="online-date" name="transaction_date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="online-time">Transaction Time</label>
-                        <input type="text" id="online-time" name="transaction_time" required placeholder="HH:MM">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="customer-name">Customer Name</label>
-                    <input type="text" id="customer-name" name="customer_name" required placeholder="Customer Full Name">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="online-amount">Amount Received (₹)</label>
-                        <input type="number" id="online-amount" name="amount" required placeholder="0.00" step="0.01">
-                    </div>
-                    <div class="form-group">
-                        <label for="transaction-id">Transaction ID</label>
-                        <input type="text" id="transaction-id" name="transaction_id" required placeholder="TXN-001">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="payment-gateway">Payment Gateway</label>
-                    <select id="payment-gateway" name="payment_gateway" required>
-                        <option value="">Select Payment Gateway</option>
-                        <option value="paypal">PayPal</option>
-                        <option value="stripe">Stripe</option>
-                        <option value="razorpay">Razorpay</option>
-                        <option value="paytm">Paytm</option>
-                        <option value="googlepay">Google Pay</option>
-                        <option value="phonepe">PhonePe</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="customer-email">Customer Email</label>
-                    <input type="email" id="customer-email" name="customer_email" placeholder="customer@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="online-notes">Transaction Notes</label>
-                    <textarea id="online-notes" name="notes" placeholder="Any additional details"></textarea>
-                </div>
-                <button type="submit">Record Online Collection</button>
-                <button type="reset">Clear</button>
-            </form>
-        </div>
-    </div>
+<button onclick="showSection('agra')">Agra Payments</button>
 
-    <script>
-        // Navigation
-        const navButtons = document.querySelectorAll('.nav-btn');
-        const sections = document.querySelectorAll('.section');
+<button onclick="showSection('etawah')">Etawah Payments</button>
 
-        navButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const sectionId = button.getAttribute('data-section');
-                navButtons.forEach(btn => btn.classList.remove('active'));
-                sections.forEach(section => section.classList.remove('active'));
-                button.classList.add('active');
-                document.getElementById(sectionId).classList.add('active');
-            });
-        });
+</div>
 
-        function handleLogin(event) {
-            event.preventDefault();
-            document.getElementById('login-success').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('login-success').style.display = 'none';
-            }, 3000);
-        }
 
-        function handleLogout(event) {
-            event.preventDefault();
-            document.getElementById('logout-success').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('logout-success').style.display = 'none';
-            }, 3000);
-        }
 
-        function handleRetailerVisit(event) {
-            event.preventDefault();
-            document.getElementById('visit-success').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('visit-success').style.display = 'none';
-            }, 3000);
-        }
+<div class="main">
 
-        function handleCashCollection(event) {
-            event.preventDefault();
-            document.getElementById('cash-success').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('cash-success').style.display = 'none';
-            }, 3000);
-        }
+<div class="header">
 
-        function handleOnlineCollection(event) {
-            event.preventDefault();
-            document.getElementById('online-success').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('online-success').style.display = 'none';
-            }, 3000);
-        }
-    </script>
+<h1>Evolve Living Portal</h1>
+
+<p>Subsidiary of Ranchan Analysis Pvt. Ltd.  
+Employee Tracking & Payment Collection Dashboard</p>
+
+</div>
+
+
+
+<!-- EMPLOYEE TRACKING -->
+
+<div id="tracking" class="section active">
+
+<h2>Employee Tracking / Retailer Visit</h2>
+
+<div class="loader">Loading Form...</div>
+
+<iframe aria-label='Ranjna Agencies Private Limited (Retailer Visit Form)' frameborder="0" allow="geolocation;camera;" style="height:500px;width:99%;border:none;" src='https://forms.zohopublic.in/sy942255gm1/form/CounterVisitTrackingForm/formperma/bnCAwS8ikFtWgcaGPa67xwJ_XUVQ4QRlbFgtFTHX1VI?zf_enablecamera=true'></iframe>
+
+</div>
+
+
+
+<!-- AGRA -->
+
+<div id="agra" class="section">
+
+<h2>Agra Branch Payments</h2>
+
+<div class="subnav">
+
+<button onclick="showSub('agraCash')">Cash</button>
+
+<button onclick="showSub('agraOnline')">Online</button>
+
+</div>
+
+
+<div id="agraCash">
+
+<div class="loader">Cash Payment Form Placeholder</div>
+
+<iframe src=""></iframe>
+
+</div>
+
+
+<div id="agraOnline" style="display:none;">
+
+<div class="loader">Online Payment Form Placeholder</div>
+
+<iframe src=""></iframe>
+
+</div>
+
+</div>
+
+
+
+<!-- ETAWAH -->
+
+<div id="etawah" class="section">
+
+<h2>Etawah Branch Payments</h2>
+
+<div class="subnav">
+
+<button onclick="showSub('etawahCash')">Cash</button>
+
+<button onclick="showSub('etawahOnline')">Online</button>
+
+</div>
+
+
+<div id="etawahCash">
+
+<div class="loader">Cash Payment Form Placeholder</div>
+
+<iframe src=""></iframe>
+
+</div>
+
+
+<div id="etawahOnline" style="display:none;">
+
+<div class="loader">Online Payment Form Placeholder</div>
+
+<iframe src=""></iframe>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+<script>
+
+function showSection(id){
+
+document.querySelectorAll('.section').forEach(sec=>{
+sec.classList.remove('active')
+})
+
+document.getElementById(id).classList.add('active')
+
+}
+
+function showSub(id){
+
+let parent=document.getElementById(id).parentElement
+
+parent.querySelectorAll("div").forEach(d=>{
+if(d.id)d.style.display="none"
+})
+
+document.getElementById(id).style.display="block"
+
+}
+
+</script>
+
+
 </body>
 </html>
