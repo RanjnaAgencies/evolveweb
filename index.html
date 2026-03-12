@@ -402,6 +402,33 @@ iframe {
   display: none;
 }
 
+/* ── COMING SOON ── */
+.coming-soon {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cs-icon {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.cs-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.cs-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
 /* ── FOOTER ── */
 footer {
   position: relative;
@@ -529,6 +556,11 @@ footer {
         <div class="loader-ring"></div>
         <span>Loading form</span>
       </div>
+      <div class="coming-soon" id="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <div class="cs-title">Coming Soon</div>
+        <div class="cs-sub">This form will be available shortly.</div>
+      </div>
       <iframe id="frame"></iframe>
     </div>
   </div>
@@ -547,7 +579,23 @@ const titles = {
 };
 
 const links = {
-  visit: "https://forms.zohopublic.in/sy942255gm1/form/CounterVisitTrackingForm/formperma/bnCAwS8ikFtWgcaGPa67xwJ_XUVQ4QRlbFgtFTHX1VI?zf_enablecamera=true"
+  checkin:      "https://forms.zohopublic.in/sy942255gm1/form/MassageIntakeForm/formperma/ueC94qrA8DuPZF5anFYgsSHpXPwCtIvPqDUyVadzFaM?zf_enablecamera=true",
+  checkout:     "https://forms.zohopublic.in/sy942255gm1/form/RanjnaAgenciesPrivateLimitedLogOutForm/formperma/BCa1Xblj4Ca1pVvIBhee1MK1KaIYF2ULj6eJb5GIZN4?zf_enablecamera=true",
+  visit:        "https://forms.zohopublic.in/sy942255gm1/form/CounterVisitTrackingForm/formperma/bnCAwS8ikFtWgcaGPa67xwJ_XUVQ4QRlbFgtFTHX1VI?zf_enablecamera=true",
+  agraCash:     "https://forms.zohopublic.in/1839ryluckgm1/form/CorporateTeamOutingForm/formperma/3PrB4-JEfMPLSE7By3aTgs8YEvalmCZh4fSqfo7RzWc",
+  agraOnline:   "https://forms.zohopublic.in/1839ryluckgm1/form/RanjnaAgenciesPrivateLimitedTransfer/formperma/ujutx4iJVAvIzEqF-OeIvlU73ntNgOad5N6bznwLEWs?zf_enablecamera=true",
+  etawahCash:   "coming-soon",
+  etawahOnline: "https://forms.zohopublic.in/enquiryranjnagm1/form/SimpleOrderForm/formperma/x2sbfz1aRS1ZCgrqU-WI2p_wR23UiA7O7RQMK8iJni0?zf_enablecamera=true"
+};
+
+const frameAllow = {
+  checkin:      "geolocation;camera;",
+  checkout:     "geolocation;camera;",
+  visit:        "geolocation;camera;",
+  agraCash:     "",
+  agraOnline:   "camera;",
+  etawahCash:   "",
+  etawahOnline: "camera;"
 };
 
 function openForm(type) {
@@ -555,19 +603,29 @@ function openForm(type) {
   const frame = document.getElementById("frame");
   const loader = document.getElementById("loader");
   const title = document.getElementById("modal-title");
+  const comingSoon = document.getElementById("coming-soon");
 
   title.textContent = titles[type] || "Form";
   modal.classList.add("show");
-  loader.style.display = "flex";
-  frame.style.display = "none";
 
   const link = links[type] || "";
-  frame.src = link;
 
-  frame.onload = function () {
-    loader.style.display = "none";
-    frame.style.display = "block";
-  };
+  // Reset
+  loader.style.display = "none";
+  frame.style.display = "none";
+  comingSoon.style.display = "none";
+
+  if (link === "coming-soon") {
+    comingSoon.style.display = "flex";
+  } else {
+    loader.style.display = "flex";
+    frame.setAttribute("allow", frameAllow[type] || "");
+    frame.src = link;
+    frame.onload = function () {
+      loader.style.display = "none";
+      frame.style.display = "block";
+    };
+  }
 }
 
 function closeModal() {
