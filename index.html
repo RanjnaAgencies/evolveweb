@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Evolve Living Employee Portal</title>
+<title>Evolve Living D2C Portal</title>
 
 <style>
 
@@ -16,267 +16,292 @@ font-family:Segoe UI;
 }
 
 body{
-background:#f4f6fb;
-display:flex;
-height:100vh;
-}
-
-/* SIDEBAR */
-
-.sidebar{
-width:250px;
-background:#111827;
+background:linear-gradient(135deg,#1f2937,#111827);
 color:white;
-padding:25px;
-}
-
-.sidebar h2{
-margin-bottom:30px;
-font-size:22px;
-}
-
-.sidebar button{
-width:100%;
-padding:12px;
-margin-bottom:10px;
-border:none;
-background:#1f2937;
-color:white;
-cursor:pointer;
-border-radius:6px;
-transition:0.3s;
-}
-
-.sidebar button:hover{
-background:#374151;
-}
-
-/* MAIN */
-
-.main{
-flex:1;
-padding:30px;
-overflow:auto;
+min-height:100vh;
 }
 
 /* HEADER */
 
-.header{
-background:white;
-padding:20px;
-border-radius:8px;
-box-shadow:0 4px 10px rgba(0,0,0,0.08);
-margin-bottom:20px;
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
 }
 
-.header h1{
-font-size:26px;
-margin-bottom:5px;
+.logo{
+font-size:22px;
+font-weight:600;
 }
 
-.header p{
-color:#555;
+.subtitle{
+font-size:12px;
+opacity:.8;
 }
 
-/* SECTION */
+/* MAIN */
 
-.section{
-display:none;
-background:white;
-padding:20px;
-border-radius:8px;
-box-shadow:0 4px 10px rgba(0,0,0,0.08);
+.container{
+max-width:1100px;
+margin:auto;
+padding:40px 20px;
 }
 
-.section.active{
-display:block;
+.title{
+font-size:28px;
+margin-bottom:10px;
 }
 
-/* SUB TABS */
-
-.subnav{
-margin-bottom:15px;
+.desc{
+opacity:.8;
+margin-bottom:40px;
 }
 
-.subnav button{
-padding:10px 20px;
-margin-right:10px;
-border:none;
-background:#e5e7eb;
+/* CARDS */
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.card{
+background:rgba(255,255,255,0.06);
+padding:25px;
+border-radius:12px;
 cursor:pointer;
-border-radius:6px;
+transition:.3s;
+border:1px solid rgba(255,255,255,.1);
 }
 
-.subnav button:hover{
-background:#d1d5db;
+.card:hover{
+transform:translateY(-5px);
+background:rgba(255,255,255,0.12);
 }
 
-/* LOADING */
+.card h3{
+margin-bottom:10px;
+}
+
+.card p{
+font-size:14px;
+opacity:.8;
+}
+
+/* SUB CARDS */
+
+.subcards{
+margin-top:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+}
+
+/* MODAL */
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.7);
+display:none;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.modal-content{
+background:white;
+color:black;
+border-radius:10px;
+width:90%;
+max-width:900px;
+height:80vh;
+position:relative;
+overflow:hidden;
+}
+
+.close{
+position:absolute;
+top:10px;
+right:15px;
+font-size:20px;
+cursor:pointer;
+}
+
+/* LOADER */
 
 .loader{
-text-align:center;
-padding:20px;
-color:#555;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+border:5px solid #eee;
+border-top:5px solid #6366f1;
+border-radius:50%;
+width:40px;
+height:40px;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+0%{transform:translate(-50%,-50%) rotate(0)}
+100%{transform:translate(-50%,-50%) rotate(360deg)}
 }
 
 iframe{
 width:100%;
-height:600px;
+height:100%;
 border:none;
+display:none;
 }
 
 </style>
 </head>
 
-
 <body>
 
+<header>
 
-<!-- SIDEBAR -->
+<div>
+<div class="logo">Evolve Living D2C</div>
+<div class="subtitle">A subsidiary of Ranjna Agencies Private Limited</div>
+</div>
 
-<div class="sidebar">
+</header>
 
-<h2>Evolve Living</h2>
 
-<button onclick="showSection('tracking')">Employee Tracking</button>
+<div class="container">
 
-<button onclick="showSection('agra')">Agra Payments</button>
+<div class="title">Employee Operations Portal</div>
 
-<button onclick="showSection('etawah')">Etawah Payments</button>
-
+<div class="desc">
+Employee tracking and payment collection management system.
 </div>
 
 
-
-<div class="main">
-
-<div class="header">
-
-<h1>Evolve Living Portal</h1>
-
-<p>Subsidiary of Ranchan Analysis Pvt. Ltd.  
-Employee Tracking & Payment Collection Dashboard</p>
-
-</div>
-
-
+<div class="cards">
 
 <!-- EMPLOYEE TRACKING -->
 
-<div id="tracking" class="section active">
+<div class="card" onclick="openForm('tracking')">
 
-<h2>Employee Tracking / Retailer Visit</h2>
+<h3>Employee Tracking</h3>
 
-<div class="loader">Loading Form...</div>
-
-<iframe aria-label='Ranjna Agencies Private Limited (Retailer Visit Form)' frameborder="0" allow="geolocation;camera;" style="height:500px;width:99%;border:none;" src='https://forms.zohopublic.in/sy942255gm1/form/CounterVisitTrackingForm/formperma/bnCAwS8ikFtWgcaGPa67xwJ_XUVQ4QRlbFgtFTHX1VI?zf_enablecamera=true'></iframe>
+<p>Retailer visit tracking form</p>
 
 </div>
-
 
 
 <!-- AGRA -->
 
-<div id="agra" class="section">
+<div class="card">
 
-<h2>Agra Branch Payments</h2>
+<h3>Agra Branch Payments</h3>
 
-<div class="subnav">
+<div class="subcards">
 
-<button onclick="showSub('agraCash')">Cash</button>
-
-<button onclick="showSub('agraOnline')">Online</button>
-
+<div class="card" onclick="openForm('agraCash')">
+<h4>Cash Payment</h4>
 </div>
 
-
-<div id="agraCash">
-
-<div class="loader">Cash Payment Form Placeholder</div>
-
-<iframe src=""></iframe>
-
-</div>
-
-
-<div id="agraOnline" style="display:none;">
-
-<div class="loader">Online Payment Form Placeholder</div>
-
-<iframe src=""></iframe>
-
+<div class="card" onclick="openForm('agraOnline')">
+<h4>Online Payment</h4>
 </div>
 
 </div>
 
+</div>
 
 
 <!-- ETAWAH -->
 
-<div id="etawah" class="section">
+<div class="card">
 
-<h2>Etawah Branch Payments</h2>
+<h3>Etawah Branch Payments</h3>
 
-<div class="subnav">
+<div class="subcards">
 
-<button onclick="showSub('etawahCash')">Cash</button>
+<div class="card" onclick="openForm('etawahCash')">
+<h4>Cash Payment</h4>
+</div>
 
-<button onclick="showSub('etawahOnline')">Online</button>
+<div class="card" onclick="openForm('etawahOnline')">
+<h4>Online Payment</h4>
+</div>
 
 </div>
 
-
-<div id="etawahCash">
-
-<div class="loader">Cash Payment Form Placeholder</div>
-
-<iframe src=""></iframe>
-
 </div>
-
-
-<div id="etawahOnline" style="display:none;">
-
-<div class="loader">Online Payment Form Placeholder</div>
-
-<iframe src=""></iframe>
 
 </div>
 
 </div>
 
 
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+<div class="modal-content">
+
+<span class="close" onclick="closeModal()">✖</span>
+
+<div class="loader" id="loader"></div>
+
+<iframe id="formFrame"></iframe>
 
 </div>
 
+</div>
 
 
 <script>
 
-function showSection(id){
+function openForm(type){
 
-document.querySelectorAll('.section').forEach(sec=>{
-sec.classList.remove('active')
-})
+const modal=document.getElementById("modal")
+const iframe=document.getElementById("formFrame")
+const loader=document.getElementById("loader")
 
-document.getElementById(id).classList.add('active')
+modal.style.display="flex"
+loader.style.display="block"
+iframe.style.display="none"
+
+
+let link=""
+
+if(type=="tracking"){
+link="https://forms.zohopublic.in/sy942255gm1/form/CounterVisitTrackingForm/formperma/bnCAwS8ikFtWgcaGPa67xwJ_XUVQ4QRlbFgtFTHX1VI?zf_enablecamera=true"
+}
+
+else{
+link=""
+}
+
+iframe.src=link
+
+iframe.onload=function(){
+loader.style.display="none"
+iframe.style.display="block"
+}
 
 }
 
-function showSub(id){
+function closeModal(){
 
-let parent=document.getElementById(id).parentElement
+document.getElementById("modal").style.display="none"
 
-parent.querySelectorAll("div").forEach(d=>{
-if(d.id)d.style.display="none"
-})
-
-document.getElementById(id).style.display="block"
+document.getElementById("formFrame").src=""
 
 }
 
 </script>
-
 
 </body>
 </html>
