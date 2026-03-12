@@ -18,33 +18,58 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+background:#0f172a;
 color:white;
 min-height:100vh;
+overflow-x:hidden;
 }
 
-/* HEADER */
+/* glowing background */
+
+body::before{
+content:"";
+position:fixed;
+width:600px;
+height:600px;
+background:radial-gradient(circle,#6366f1,#9333ea);
+filter:blur(180px);
+top:-200px;
+left:-200px;
+opacity:.6;
+}
+
+body::after{
+content:"";
+position:fixed;
+width:600px;
+height:600px;
+background:radial-gradient(circle,#06b6d4,#3b82f6);
+filter:blur(180px);
+bottom:-200px;
+right:-200px;
+opacity:.6;
+}
+
+/* header */
 
 header{
 text-align:center;
-padding:40px 20px 10px 20px;
+padding:50px 20px 20px;
 }
 
 .logo{
-font-size:34px;
+font-size:36px;
 font-weight:600;
-background:linear-gradient(90deg,#60a5fa,#a78bfa);
--webkit-background-clip:text;
-color:transparent;
+letter-spacing:1px;
 }
 
-.sub{
-margin-top:5px;
-font-size:14px;
+.subtitle{
 opacity:.7;
+font-size:14px;
+margin-top:5px;
 }
 
-/* MAIN */
+/* container */
 
 .container{
 max-width:1100px;
@@ -52,49 +77,36 @@ margin:auto;
 padding:40px 20px;
 }
 
-.title{
-text-align:center;
-font-size:28px;
-margin-bottom:10px;
-}
-
-.desc{
-text-align:center;
-opacity:.7;
-margin-bottom:40px;
-}
-
-/* CARDS GRID */
+/* grid */
 
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
+gap:30px;
 }
 
-/* CARD */
+/* cards */
 
 .card{
 background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,.1);
-border-radius:16px;
+border-radius:18px;
 padding:30px;
-cursor:pointer;
-transition:all .35s ease;
 backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.1);
+cursor:pointer;
+transition:.35s;
 position:relative;
-overflow:hidden;
 }
 
 .card:hover{
-transform:translateY(-6px);
-background:rgba(255,255,255,0.1);
-box-shadow:0 10px 40px rgba(0,0,0,.4);
+transform:translateY(-10px) scale(1.02);
+box-shadow:
+0 0 20px rgba(99,102,241,.6),
+0 0 40px rgba(99,102,241,.4);
 }
 
 .card h3{
-font-size:20px;
-margin-bottom:8px;
+margin-bottom:10px;
 }
 
 .card p{
@@ -102,7 +114,7 @@ font-size:14px;
 opacity:.75;
 }
 
-/* SUB GRID */
+/* subgrid */
 
 .subgrid{
 margin-top:20px;
@@ -112,9 +124,9 @@ gap:15px;
 }
 
 .subcard{
-background:rgba(255,255,255,0.07);
-padding:16px;
+padding:15px;
 border-radius:10px;
+background:rgba(255,255,255,0.08);
 text-align:center;
 cursor:pointer;
 transition:.3s;
@@ -122,9 +134,10 @@ transition:.3s;
 
 .subcard:hover{
 background:rgba(255,255,255,0.15);
+box-shadow:0 0 15px rgba(255,255,255,.4);
 }
 
-/* MODAL */
+/* modal */
 
 .modal{
 position:fixed;
@@ -132,19 +145,19 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.75);
+background:rgba(0,0,0,.8);
 display:none;
 align-items:center;
 justify-content:center;
 padding:20px;
-z-index:100;
+z-index:10;
 }
 
 .modal-box{
-background:white;
 width:95%;
 max-width:900px;
 height:85vh;
+background:white;
 border-radius:14px;
 position:relative;
 overflow:hidden;
@@ -152,14 +165,14 @@ overflow:hidden;
 
 .close{
 position:absolute;
+top:12px;
 right:15px;
-top:10px;
 font-size:20px;
 cursor:pointer;
-z-index:5;
+color:black;
 }
 
-/* LOADER */
+/* loader */
 
 .loader{
 position:absolute;
@@ -169,8 +182,8 @@ transform:translate(-50%,-50%);
 border:5px solid #eee;
 border-top:5px solid #6366f1;
 border-radius:50%;
-width:45px;
-height:45px;
+width:40px;
+height:40px;
 animation:spin 1s linear infinite;
 }
 
@@ -195,37 +208,45 @@ display:none;
 
 <div class="logo">Evolve Living D2C</div>
 
-<div class="sub">
+<div class="subtitle">
 A subsidiary of Ranjna Agencies Private Limited
 </div>
 
 </header>
 
+
 <div class="container">
-
-<div class="title">
-Employee Operations Dashboard
-</div>
-
-<div class="desc">
-Retailer visit tracking and branch payment management
-</div>
-
 
 <div class="grid">
 
-<!-- EMPLOYEE TRACKING -->
+<!-- Employee Tracking -->
 
-<div class="card" onclick="openForm('tracking')">
+<div class="card">
 
 <h3>Employee Tracking</h3>
 
-<p>Retailer Visit Tracking Form</p>
+<p>Daily attendance and visit tracking</p>
+
+<div class="subgrid">
+
+<div class="subcard" onclick="openForm('checkin')">
+Check In
+</div>
+
+<div class="subcard" onclick="openForm('checkout')">
+Check Out
+</div>
+
+<div class="subcard" onclick="openForm('visit')">
+Retailer Visit
+</div>
+
+</div>
 
 </div>
 
 
-<!-- AGRA -->
+<!-- Agra -->
 
 <div class="card">
 
@@ -246,7 +267,7 @@ Online Collection
 </div>
 
 
-<!-- ETAWAH -->
+<!-- Etawah -->
 
 <div class="card">
 
@@ -272,7 +293,7 @@ Online Collection
 
 
 
-<!-- MODAL -->
+<!-- Modal -->
 
 <div class="modal" id="modal">
 
@@ -289,7 +310,6 @@ Online Collection
 </div>
 
 
-
 <script>
 
 function openForm(type){
@@ -299,13 +319,12 @@ let frame=document.getElementById("frame")
 let loader=document.getElementById("loader")
 
 modal.style.display="flex"
-
-frame.style.display="none"
 loader.style.display="block"
+frame.style.display="none"
 
 let link=""
 
-if(type=="tracking"){
+if(type=="visit"){
 
 link="https://forms.zohopublic.in/sy942255gm1/form/CounterVisitTrackingForm/formperma/bnCAwS8ikFtWgcaGPa67xwJ_XUVQ4QRlbFgtFTHX1VI?zf_enablecamera=true"
 
@@ -313,7 +332,7 @@ link="https://forms.zohopublic.in/sy942255gm1/form/CounterVisitTrackingForm/form
 
 else{
 
-link=""  // placeholder
+link="" // placeholder
 
 }
 
