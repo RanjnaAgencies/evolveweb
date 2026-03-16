@@ -739,7 +739,7 @@ iframe{width:100%;height:100%;border:none;display:none}
             <div class="ec-acts">
               <div class="act" onclick="openForm('checkin','Ritik (EMPECOM02) — Check In',this)"><span class="act-em">🟢</span><span class="act-lbl">Check In</span></div>
               <div class="act" onclick="openForm('checkout','Ritik (EMPECOM02) — Check Out',this)"><span class="act-em">🔴</span><span class="act-lbl">Check Out</span></div>
-              <div class="act" onclick="openForm('visit','Ritik (EMPECOM02) — Package Shipped',this)"><span class="act-em">📦</span><span class="act-lbl">Package Shipped</span></div>
+              <div class="act" onclick="openForm('packageshipped','Ritik (EMPECOM02) — Package Shipped',this)"><span class="act-em">📦</span><span class="act-lbl">Package Shipped</span></div>
               <div class="act" onclick="openForm('petrol','Ritik (EMPECOM02) — Return Received',this)"><span class="act-em">↩️</span><span class="act-lbl">Return Received</span></div>
             </div>
           </div>
@@ -1011,13 +1011,14 @@ const LINKS={
   checkin:'https://forms.zohopublic.in/sy942255gm1/form/MassageIntakeForm/formperma/ueC94qrA8DuPZF5anFYgsSHpXPwCtIvPqDUyVadzFaM?zf_enablecamera=true',
   checkout:'https://forms.zohopublic.in/sy942255gm1/form/RanjnaAgenciesPrivateLimitedLogOutForm/formperma/BCa1Xblj4Ca1pVvIBhee1MK1KaIYF2ULj6eJb5GIZN4?zf_enablecamera=true',
   visit:'https://forms.zohopublic.in/sy942255gm1/form/CounterVisitTrackingForm/formperma/bnCAwS8ikFtWgcaGPa67xwJ_XUVQ4QRlbFgtFTHX1VI?zf_enablecamera=true',
+  packageshipped:'https://forms.zohopublic.in/1839ryluckgm1/form/QRScanOrderForm/formperma/CfiDf62e3sPrqlDURO0xjidLML5i3IMFSuwcMDr7dFQ?zf_enablecamera=true',
   petrol:'coming-soon',
   agraCash:'https://forms.zohopublic.in/1839ryluckgm1/form/CorporateTeamOutingForm/formperma/3PrB4-JEfMPLSE7By3aTgs8YEvalmCZh4fSqfo7RzWc',
   agraOnline:'https://forms.zohopublic.in/1839ryluckgm1/form/RanjnaAgenciesPrivateLimitedTransfer/formperma/ujutx4iJVAvIzEqF-OeIvlU73ntNgOad5N6bznwLEWs?zf_enablecamera=true',
   etawahCash:'coming-soon',
   etawahOnline:'https://forms.zohopublic.in/enquiryranjnagm1/form/SimpleOrderForm/formperma/x2sbfz1aRS1ZCgrqU-WI2p_wR23UiA7O7RQMK8iJni0?zf_enablecamera=true'
 };
-const PERM={checkin:'geolocation; camera;',checkout:'geolocation; camera;',visit:'geolocation; camera;',petrol:'camera;',agraCash:'',agraOnline:'camera;',etawahCash:'',etawahOnline:'camera;'};
+const PERM={checkin:'geolocation; camera;',checkout:'geolocation; camera;',visit:'geolocation; camera;',packageshipped:'camera;',petrol:'camera;',agraCash:'',agraOnline:'camera;',etawahCash:'',etawahOnline:'camera;'};
 const LOAD_LABELS=['Connecting','Fetching Form','Almost Ready','Finalising'];
 let bt=null,stepT=null;
 
